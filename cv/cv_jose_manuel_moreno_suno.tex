@@ -1,0 +1,101 @@
+\documentclass[11pt,a4paper,sans]{moderncv}
+\moderncvstyle{banking}
+\moderncvcolor{blue}
+
+\renewcommand*{\namefont}{\fontsize{26}{28}\bfseries\upshape}
+\colorlet{firstnamecolor}{color1}
+\colorlet{lastnamecolor}{color1}
+\colorlet{namecolor}{color1}
+\renewcommand*{\sectionstyle}[1]{{\sectionfont\color{color1}#1}}
+
+\usepackage[utf8]{inputenc}
+\ifpdftex\usepackage[T1]{fontenc}\fi
+\AtEndPreamble{\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+    pdftitle={Jose Manuel Moreno Cano - CV Suno AI},
+    pdfpagemode=UseNone,
+}}
+\usepackage[scale=0.82]{geometry}
+
+% Personal Data
+\name{José Manuel}{Moreno Cano}
+\address{Spain (Open to Remote / Relocation)}{}{}
+\phone[mobile]{+34~630~189~616}
+\email{josemanuel.moreno.iagrok@gmail.com}
+\extrainfo{\href{https://suno.com/@noxferion}{Suno: @noxferion} \,|\, Spotify Artist (Amuse Distribution) \,|\, \href{https://wa.me/34630189616}{WhatsApp: +34~630~189~616} \,|\, \href{https://www.linkedin.com/in/jose-manuel-moreno-cano-8b2b47287/}{LinkedIn} \,|\, \href{https://github.com/cyberenigma-lgtm}{GitHub: cyberenigma-lgtm} \,|\, IP Reg. ID: 2609046909131}
+
+\begin{document}
+
+\makecvtitle
+
+\vspace{-10pt}
+\small{\textbf{Engineering Methodology Statement:} I am an \textbf{AI Systems Architect, Product Engineer, and Active Suno AI Creator}. I do not write traditional low-level C, Rust, or Python syntax line-by-line by hand. Instead, \textbf{I use advanced AI models as my execution engines}---architecting software structures, specifying requirements, directing code generation, and empirically benchmarking execution on hardware. As a daily user of Suno, I combine user insights with the creation of the IAGROK platform, orchestrating 60 parallel micro-agents, sub-millisecond (0.87 ms) SIMD vector search, NVMe tensor memory managers, and generative audio pipelines (Suno Bark / MusicGen).}
+
+\section{Core Technical Competencies}
+\begin{itemize}
+\item \textbf{Systems Architecture \& AI Engineering:} Distributed micro-agent design (60 agents), multi-agent data flow design, AI-assisted software engineering.
+\item \textbf{Audio AI \& Generative Music:} Suno Bark Vocal Engine, MusicGen Acoustic Engine, Neural Singing (SVS), Audio Embeddings, DSP.
+\item \textbf{High-Performance Native Runtimes (C / Rust / SIMD):} Dynamic shared library specifications, C11/C17 \& Rust structures, AVX2 / FMA SIMD vectorization.
+\item \textbf{Memory \& Hardware Optimization:} NVMe-backed Virtual Tensor Memory Manager ($>$700GB NVMe swap pools with write-wear protection), silicon telemetric monitoring (93.7\% TOPS saturation).
+\item \textbf{Quality Assurance \& IP Protection:} Cryptographic SHA-256 audit trails, empirical hardware benchmarking, Registered IP (\texttt{Safe Creative ID: 2609046909131}).
+\end{itemize}
+
+\section{Key Technical Achievements}
+\begin{itemize}
+\item \textbf{IAGROK — Bi-Hemispheric AI Orchestration Platform}
+  \begin{itemize}
+  \item Architected a modular AI platform managing 60 parallel specialized micro-agents across logic, audio, syntax, and processing domains.
+  \item Implemented a 3-engine core executing real-time data processing loops with average inferencing latencies under 350ms.
+  \item Built an asynchronous memory consolidation pipeline featuring real-time verification algorithms (82\%+ score).
+  \item Registered under Intellectual Property Registration ID: \texttt{2609046909131}.
+  \end{itemize}
+
+\item \textbf{DVTRGAS-30 — SIMD Vector Search Engine (C \& Rust)}
+  \begin{itemize}
+  \item Designed a native vector engine compiled to shared libraries using AVX2/FMA SIMD instruction sets.
+  \item Achieved 0.87 ms average vector search latency over 1536-dimensional semantic embedding spaces.
+  \item Reached 93.7\% physical silicon utilization (31.85 TOPS) on Intel Core Ultra 9 185H hardware.
+  \end{itemize}
+
+\item \textbf{Generative Audio \& Vocal Synthesis Integration}
+  \begin{itemize}
+  \item Directed integration of Suno Bark Vocal Engine for real-time neural singing synthesis and prompt-driven vocal generation.
+  \item Integrated Meta MusicGen Studio acoustic pipelines for procedural music orchestration and multi-track DSP.
+  \item \textbf{End-to-End Suno Production Workflow:} Writes 100\% original copyrighted lyrics, utilizing Suno AI as a virtual studio band to produce complete master demo tracks, distributed globally on Spotify via Amuse Music Distribution.
+  \end{itemize}
+
+\item \textbf{Dynamic NVMe Tensor Memory Manager}
+  \begin{itemize}
+  \item Architected a high-scale Virtual Tensor Memory Manager supporting up to 728.69 GB NVMe swap pools with NVMe anti-wear protection algorithms.
+  \end{itemize}
+\end{itemize}
+
+\section{Public Portfolio \& Low-Level Systems Projects}
+\begin{itemize}
+\item \textbf{NeuroOSDEFINITIVO:} Automated bare-metal and dual-boot OS installer, partition manager (\texttt{psutil}/\texttt{lsblk}), and cryptographic license manager for Ring 0 Kernel deployments.
+\item \textbf{Neuro-IDE (The Surgical Cockpit):} Custom Integrated Development Environment for OS/Kernel development, featuring automated OS skeleton generation (\texttt{boot.asm}, \texttt{kernel.c}), Hex Editor, x86 Disassembler, IO/APIC interrupt simulators, and Time-Travel log debuggers.
+\item \textbf{Neuro-OS Genesis \& Kernel Engineering:} Custom x86 Operating System kernel written in C and Assembly with preemptive multitasking, PCI bus scanning, and memory management.
+\item \textbf{SNeuro-Wasm Engine:} Embedded stack-based Virtual Machine built directly into the Ring 0 OS kernel for secure sandboxed bytecode execution.
+\item \textbf{NeuroFS \& Binary Loader:} Proprietary virtual file system format and executable binary loader (\texttt{.GX} modules) with custom bytecode compilers.
+\item \textbf{Neuro-OS-Desktop \& BGA Graphics:} Full-stack desktop system control environment, custom BGA 1024x768x32 graphics driver with double buffering, and UI.
+\item \textbf{DVTRGA / NEURO-GFX:} High-performance graphics rendering and shading engine.
+\item \textbf{Neuro-probe:} System hardware diagnostics, PCI/RTL8139 network driver probing, and telemetric profiling tool.
+\end{itemize}
+
+\section{Professional Experience}
+\begin{itemize}
+\item \textbf{AI Systems Architect \& Founder} --- Independent AI R\&D \hfill (2023 --- Present)
+  \begin{itemize}
+  \item Architected, benchmarked, and maintained the complete IAGROK native ecosystem.
+  \item Directed AI execution engines to orchestrate multi-language codebases (C, Rust, Python) and hardware profiling suites.
+  \item Published empirical audit reports with SHA-256 signatures and managed global IP protection.
+  \end{itemize}
+\end{itemize}
+
+\section{Targeting Suno AI}
+Suno AI is leading the transformation of generative audio technology. My commitment to engineering transparency, combined with my ability to architect complex AI systems, leverage AI models as code execution engines, and integrate generative audio models, enables me to contribute immediate systems design, rapid prototyping, and runtime optimization at Suno AI.
+
+\end{document}
