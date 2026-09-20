@@ -14,7 +14,7 @@
 
 This repository contains the application dossier and interactive curriculum vitae tailored for **Suno AI** (*Senior / Staff Software Engineer, AI Engineering*):
 
-- 🌐 [**`index.html`**](index.html) — Interactive Web CV with dark-mode aesthetic, live execution terminal simulator, and real-time system metrics.
+- 🌐 [**`Live Interactive Web CV`**](https://cyberenigma-lgtm.github.io/CV-Noxferion/) ([View HTML Source](index.html)) — Interactive Web CV with dark-mode aesthetic, live execution terminal simulator, and real-time system metrics.
 - 📄 [**`cv/CV_Jose_Manuel_Moreno_Suno_AI.md`**](cv/CV_Jose_Manuel_Moreno_Suno_AI.md) — Comprehensive Corporate Markdown Curriculum Vitae.
 - 📐 [**`cv/cv_jose_manuel_moreno_suno.tex`**](cv/cv_jose_manuel_moreno_suno.tex) — ModernCV LaTeX source code for PDF compilation.
 - ✉️ [**`cover_letters/Cover_Letter_Suno_AI_Jose_Manuel_Moreno.md`**](cover_letters/Cover_Letter_Suno_AI_Jose_Manuel_Moreno.md) — Cover Letter addressed to Suno's AI Engineering team.
