@@ -90,7 +90,11 @@ Versatile **AI Systems Architect, Applied AI Engineer, and High-Performance Soft
 - 🧠 [**`IAGROK`**](https://github.com/cyberenigma-lgtm/IAGROK): Sovereign Multi-Agent Cognitive Platform, System 2 Reasoning Pipeline & AVX2 SIMD Vector Engine.
 - 💻 **`NeuroOSDEFINITIVO`** *(Private Systems R&D)*: Bare-metal x86 OS Kernel, Automated Dual-Boot Installer & Ring 0 System Environment.
 - 🔬 [**`Neuro-IDE`**](https://github.com/cyberenigma-lgtm/Neuro-IDE): Surgical Cockpit & Diagnostic IDE for OS/Kernel development, x86 disassembler, and serial debuggers.
-- ⚡ [**`UNIVERSAL-POLYGLOT-LAYER-UPL`**](https://github.com/cyberenigma-lgtm/UNIVERSAL-POLYGLOT-LAYER-UPL): Polyglot multi-target translation layer across high-level systems code and VM targets.
+- ⚡ [**`MultiLang-ASM`**](https://github.com/cyberenigma-lgtm/MultiLang-ASM): Cross-target assembly compiler, disassembler, and polyglot translation framework across x86, ARM, and WebAssembly.
+- 🎓 [**`MultiLang-ASM-Kids`**](https://github.com/cyberenigma-lgtm/MultiLang-ASM-Kids): Educational visual & gamified assembly coding environment for low-level computer architecture instruction.
+- 🧠 [**`Neuro-IDE-Universal-Kernel-Cortex`**](https://github.com/cyberenigma-lgtm/Neuro-IDE-Universal-Kernel-Cortex): Universal Cortex IDE for real-time kernel telemetry, neural state visualization, and APIC/interrupt tracking.
+- 🛠️ [**`NeuroWill-Code`**](https://github.com/cyberenigma-lgtm/NeuroWill-Code): Executive AI coding platform, intent-driven code synthesis engine, and automated architecture generator.
+- 🌐 [**`UNIVERSAL-POLYGLOT-LAYER-UPL`**](https://github.com/cyberenigma-lgtm/UNIVERSAL-POLYGLOT-LAYER-UPL): Polyglot multi-target translation layer across high-level systems code and VM targets.
 - ⚙️ [**`NeuroUniversalASM (NUASM)`**](https://github.com/cyberenigma-lgtm/NeuroUniversalASM): Universal Assembly Assembler, Compiler, and Bytecode Pipeline framework.
 - 🖥️ [**`Neuro-OS-Desktop`**](https://github.com/cyberenigma-lgtm/Neuro-OS-Desktop): Bare-metal Desktop Control Environment with custom BGA 1024x768 32-bit graphics driver & double buffering.
 - 🎨 [**`NEURO-GFX`**](https://github.com/cyberenigma-lgtm/NEURO-GFX): High-performance graphics rendering, shader pipelines, and 2.5D/3D visual engines.
