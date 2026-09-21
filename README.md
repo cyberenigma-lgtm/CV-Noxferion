@@ -33,7 +33,7 @@ This repository contains the application dossier and interactive curriculum vita
 
 - **Name**: José Manuel Moreno Cano (Noxferion)
 - **Location**: Spain (CET / UTC+1)
-- **Email**: cyberenigma1111111111@gmail.com
+- **Email**: josem.moreno.cano@gmail.com / cyber.enigma@gmail.com
 - **Phone / WhatsApp**: [+34 630 189 616](https://wa.me/34630189616)
 - **Suno Profile**: [suno.com/@noxferion](https://suno.com/@noxferion)
 - **GitHub**: [github.com/cyberenigma-lgtm](https://github.com/cyberenigma-lgtm)
