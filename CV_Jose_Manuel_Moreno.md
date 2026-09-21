@@ -85,14 +85,19 @@ Versatile **AI Systems Architect, Applied AI Engineer, and High-Performance Soft
 
 ---
 
-## 🌐 PUBLIC GITHUB REPOSITORIES
-*Explore all repositories at [github.com/cyberenigma-lgtm](https://github.com/cyberenigma-lgtm)*
+## 🌐 PUBLIC GITHUB REPOSITORIES & SYSTEMS PORTFOLIO
+*Explore full codebases & commit history at [github.com/cyberenigma-lgtm](https://github.com/cyberenigma-lgtm)*
 
-- **`IAGROK`**: Sovereign Multi-Agent Cognitive Platform & SIMD Vector Engine.
-- **`NeuroOSDEFINITIVO`**: Bare-metal kernel installer and ring 0 system environment.
-- **`Neuro-IDE`**: Surgical IDE & OS kernel debugging suite.
-- **`MultiLang-ASM / UPL`**: Polyglot assembly translation framework.
-- **`CV-Noxferion`**: Universal interactive portfolio & curriculum vitae repository.
+- 🧠 [**`IAGROK`**](https://github.com/cyberenigma-lgtm/IAGROK): Sovereign Multi-Agent Cognitive Platform, System 2 Reasoning Pipeline & AVX2 SIMD Vector Engine.
+- 💻 **`NeuroOSDEFINITIVO`** *(Private Systems R&D)*: Bare-metal x86 OS Kernel, Automated Dual-Boot Installer & Ring 0 System Environment.
+- 🔬 [**`Neuro-IDE`**](https://github.com/cyberenigma-lgtm/Neuro-IDE): Surgical Cockpit & Diagnostic IDE for OS/Kernel development, x86 disassembler, and serial debuggers.
+- ⚡ [**`UNIVERSAL-POLYGLOT-LAYER-UPL`**](https://github.com/cyberenigma-lgtm/UNIVERSAL-POLYGLOT-LAYER-UPL): Polyglot multi-target translation layer across high-level systems code and VM targets.
+- ⚙️ [**`NeuroUniversalASM (NUASM)`**](https://github.com/cyberenigma-lgtm/NeuroUniversalASM): Universal Assembly Assembler, Compiler, and Bytecode Pipeline framework.
+- 🖥️ [**`Neuro-OS-Desktop`**](https://github.com/cyberenigma-lgtm/Neuro-OS-Desktop): Bare-metal Desktop Control Environment with custom BGA 1024x768 32-bit graphics driver & double buffering.
+- 🎨 [**`NEURO-GFX`**](https://github.com/cyberenigma-lgtm/NEURO-GFX): High-performance graphics rendering, shader pipelines, and 2.5D/3D visual engines.
+- 🚀 [**`Neuro-probe`**](https://github.com/cyberenigma-lgtm/Neuro-probe): Hardware diagnostics, PCI bus scanning, RTL8139 network probing, and low-level telemetric profiling tool.
+- 🌌 [**`TITAN-Interactive-Cosmos-Lab`**](https://github.com/cyberenigma-lgtm/TITAN-Interactive-Cosmos-Lab): Real-time astrophysics simulation engine utilizing WebGL 2.0 GPU Instancing for +80,000 stellar bodies in 1 Draw Call.
+- 📄 [**`CV-Noxferion`**](https://github.com/cyberenigma-lgtm/CV-Noxferion): Universal Interactive Engineering Portfolio & Curriculum Vitae repository.
 
 ---
 
