@@ -98,6 +98,7 @@ Versatile **AI Systems Architect, Applied AI Engineer, and High-Performance Soft
 - ⚙️ [**`NeuroUniversalASM (NUASM)`**](https://github.com/cyberenigma-lgtm/NeuroUniversalASM): Universal Assembly Assembler, Compiler, and Bytecode Pipeline framework.
 - 🖥️ [**`Neuro-OS-Desktop`**](https://github.com/cyberenigma-lgtm/Neuro-OS-Desktop): Bare-metal Desktop Control Environment with custom BGA 1024x768 32-bit graphics driver & double buffering.
 - 🎨 [**`NEURO-GFX`**](https://github.com/cyberenigma-lgtm/NEURO-GFX): High-performance graphics rendering, shader pipelines, and 2.5D/3D visual engines.
+- 🎮 [**`DVTRGA (Official Graphics Engine of Neuro-OS Genesis)`**](https://github.com/cyberenigma-lgtm/DVTRGA-Official-Graphics-Engine-of-Neuro-OS-Genesis): Native C/C++ Direct3D & rasterizer graphics engine, Direct3D proxy driver, custom shader pipelines, and x16 anisotropic filtering.
 - 🚀 [**`Neuro-probe`**](https://github.com/cyberenigma-lgtm/Neuro-probe): Hardware diagnostics, PCI bus scanning, RTL8139 network probing, and low-level telemetric profiling tool.
 - 🌌 [**`TITAN-Interactive-Cosmos-Lab`**](https://github.com/cyberenigma-lgtm/TITAN-Interactive-Cosmos-Lab): Real-time astrophysics simulation engine utilizing WebGL 2.0 GPU Instancing for +80,000 stellar bodies in 1 Draw Call.
 - 📄 [**`CV-Noxferion`**](https://github.com/cyberenigma-lgtm/CV-Noxferion): Universal Interactive Engineering Portfolio & Curriculum Vitae repository.
