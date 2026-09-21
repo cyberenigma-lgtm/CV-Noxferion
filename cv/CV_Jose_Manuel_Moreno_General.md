@@ -60,11 +60,15 @@ Versatile **AI Systems Architect, Applied AI Engineer, and High-Performance Soft
 - Developed a full x86 Operating System kernel in **C and Assembly** with preemptive multitasking, PCI scanning, and custom executable binary loaders (`.GX`).
 - Built **Neuro-IDE**, a surgical diagnostic cockpit featuring an x86 disassembler, IO/APIC interrupt simulators, and Ring 0 kernel debuggers.
 
-### 4. NeuroCOBOL V3.0 — High-Precision Deterministic AI Language Runtime
+### 4. MultiLang-ASM & Universal Polyglot Layer (UPL)
+*Systems & Compiler Architect*
+- Engineered **MultiLang-ASM**, a multi-target polyglot assembly translation framework enabling unified code generation and execution across x86_64, ARM64, WebAssembly, and custom VM targets.
+
+### 5. NeuroCOBOL V3.0 — High-Precision Deterministic AI Language Runtime
 *Language & Runtime Engineer*
 - Constructed a high-speed C-native lexer, parser, and execution runtime for NeuroCOBOL, enabling deterministic financial and logical execution for AI agents.
 
-### 5. Generative Audio & Neural Vocal Infrastructure
+### 6. Generative Audio & Neural Vocal Infrastructure
 *Audio Systems Engineer & Songwriter*
 - Built end-to-end pipelines linking neural vocal synthesis (Bark), music generation (MusicGen), and audio vector search.
 - Published original musical works globally on **Spotify** via Suno AI integration.
