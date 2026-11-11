@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070A10">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Radar Trigonométrico 1º Bach</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#070A10;color:#EEEEF5;font-family:system-ui,Segoe UI,sans-serif;display:flex;flex-direction:column;min-height:100vh}
+#tabs{display:flex;gap:4px;padding:6px;background:#0C1322;position:sticky;top:0;z-index:5}
+#tabs button{flex:1;padding:10px 4px;border:1px solid #1B2E42;background:#0D131E;color:#7E90A6;border-radius:8px;font-weight:700;font-size:13px}
+#tabs button.on{border-color:#00F0FF;color:#00F0FF;background:#163450}
+#wrap{display:flex;flex-wrap:wrap;gap:8px;padding:8px;max-width:1100px;margin:auto;width:100%}
+#left{flex:1 1 340px;min-width:300px}
+#right{flex:1 1 340px;min-width:300px;background:#0D131E;border:1px solid #1B2E42;border-radius:10px;padding:12px}
+canvas{width:100%;max-width:520px;aspect-ratio:1;display:block;margin:auto;background:#0D131E;border:1px solid #1B2E42;border-radius:10px;touch-action:none}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.btn{padding:11px 14px;border:1px solid #1B2E42;background:#162436;color:#EEEEF5;border-radius:8px;font-weight:700;font-size:14px;flex:1}
+.btn.on{border-color:#00FF88;color:#00FF88}
+.btn.big{background:#0a3a2a;border-color:#00FF88;color:#00FF88}
+h3{margin:8px 0 4px;font-size:15px}
+.eq{font-size:26px;font-weight:800;margin:4px 0}
+.sm{font-size:13px;color:#9AAEC5;line-height:1.45}
+.cy{color:#00F0FF}.mg{color:#FF1493}.gr{color:#00FF88}.am{color:#FFAA00}.rd{color:#FF2255}.yl{color:#FFD700}
+.sol{font-family:Consolas,monospace;font-size:14px;margin:2px 0;color:#7E90A6}
+.sol.ok{color:#00FF88}
+.hint{font-size:12px;color:#60789A;text-align:center;margin:4px}
+.alert{background:#330A14;border:1px solid #FF2255;border-radius:8px;padding:8px;margin:6px 0}
+</style>
+</head>
+<body>
+<div id="tabs">
+ <button id="t0" class="on">📚 Retos</button>
+ <button id="t1">🎛️ Laboratorio</button>
+ <button id="t2">💡 Teoría</button>
+</div>
+<div id="wrap">
+ <div id="left">
+  <canvas id="cv" width="520" height="520"></canvas>
+  <div class="row">
+   <button class="btn" id="m15">◀◀ −15°</button><button class="btn" id="m1">◀ −1°</button>
+   <button class="btn" id="p1">+1° ▶</button><button class="btn" id="p15">+15° ▶▶</button>
+  </div>
+  <div class="row">
+   <button class="btn" id="unit">Unidad: Grados</button>
+   <button class="btn" id="spin">🔄 ¿De dónde sale +360°k?</button>
+  </div>
+  <div id="live" class="sm"></div>
+  <div class="hint">Arrastra el dedo sobre el círculo para mover el ángulo</div>
+ </div>
+ <div id="right"></div>
+</div>
+
+<script>
+"use strict";
+const EX=[
+// [nivel, ecuación, paso, sols, rad, why1, why2, general]
+[1,"sen(x) = 1/2","Ecuación directa: buscamos la altura vertical +0.5.",[30,150],["π/6","5π/6"],"El SENO es la ALTURA (cian). Es positivo en los cuadrantes I y II.","Soluciones: α = 30° y su simétrico 180° − 30° = 150°.","x = 30° + 360°k  y  x = 150° + 360°k"],
+[1,"cos(x) = √2/2","Ecuación directa: buscamos la anchura horizontal +0.707.",[45,315],["π/4","7π/4"],"El COSENO es la ANCHURA (magenta). Positivo a la derecha (I y IV).","Soluciones: α = 45° y su simétrico 360° − 45° = 315°.","x = ±45° + 360°k"],
+[1,"sen(x) = −√3/2","Seno negativo: estamos por debajo del suelo.",[240,300],["4π/3","5π/3"],"Seno negativo → 'el sótano' (cuadrantes III y IV).","Ángulo base 60°: 180°+60° = 240° y 360°−60° = 300°.","x = 240° + 360°k  y  x = 300° + 360°k"],
+[1,"cos(x) = −1/2","Coseno negativo: estamos a la izquierda del centro.",[120,240],["2π/3","4π/3"],"Coseno negativo → lado izquierdo (cuadrantes II y III).","Ángulo base 60°: 180°−60° = 120° y 180°+60° = 240°.","x = ±120° + 360°k"],
+[1,"sen(x) = −1","Caso extremo: el punto más bajo del círculo.",[270],["3π/2"],"El círculo mide radio 1: la altura mínima es −1, en el polo sur.","Solo UNA solución por vuelta: 270°.","x = 270° + 360°k"],
+[2,"2·sen(x) − 1 = 0","Sumamos 1: 2·sen(x)=1 → dividimos entre 2: sen(x)=1/2",[30,150],["π/6","5π/6"],"Al despejar queda sen(x)=1/2: ecuación directa.","30° en el cuadrante I y 180°−30° = 150° en el II.","x = 30° + 360°k  y  x = 150° + 360°k"],
+[2,"2·cos(x) + √3 = 0","Pasamos √3 restando: cos(x) = −√3/2 ≈ −0.866",[150,210],["5π/6","7π/6"],"Coseno negativo: lado izquierdo.","cos(30°)=√3/2 → 180°−30° = 150° y 180°+30° = 210°.","x = 150° + 360°k  y  x = 210° + 360°k"],
+[2,"√2·sen(x) − 1 = 0","Despejamos: sen(x) = 1/√2 = √2/2 ≈ 0.707",[45,135],["π/4","3π/4"],"Altura notable de 45° en la mitad superior.","Cuadrante I: 45°. Cuadrante II: 180°−45° = 135°.","x = 45° + 360°k  y  x = 135° + 360°k"],
+[2,"4·cos²(x) − 1 = 0","cos²(x)=1/4 → raíz cuadrada → cos(x) = ±1/2",[60,120,240,300],["π/3","2π/3","4π/3","5π/3"],"¡Ojo! La raíz da DOS signos: +1/2 y −1/2.","+1/2 da 60° y 300°. −1/2 da 120° y 240°. Son 4 soluciones.","x = 60° + 180°k  y  x = 120° + 180°k"],
+[2,"2·sen²(x) − 1 = 0","sen²(x)=1/2 → sen(x) = ±√2/2",[45,135,225,315],["π/4","3π/4","5π/4","7π/4"],"Dos signos ±√2/2 → soluciones en los cuatro cuadrantes.","45°, 135°, 225°, 315°: una cruz perfecta.","x = 45° + 90°k"],
+[3,"sen(2x) = 1/2","Sea u=2x: u = 30°+360°k  ó  u = 150°+360°k",[15,75,195,255],["π/12","5π/12","13π/12","17π/12"],"Dividimos TODO entre 2: x = 15°+180°k y x = 75°+180°k.","Con k=0 salen 15° y 75°; con k=1 salen 195° y 255°.","x = 15° + 180°k  y  x = 75° + 180°k"],
+[3,"cos(2x) = 0","El coseno se anula en 90° y 270°: 2x = 90° + 180°k",[45,135,225,315],["π/4","3π/4","5π/4","7π/4"],"Al dividir entre 2: x = 45° + 90°k.","Con k=0,1,2,3 salen 45°, 135°, 225° y 315°.","x = 45° + 90°k"],
+[3,"sen(x + 30°) = 1","Sea u=x+30°. El seno vale 1 en 90°: u = 90° + 360°k",[60],["π/3"],"Despejamos x restando el desfase: x = 90° − 30° = 60°.","El desfase mueve la solución 30° a la izquierda.","x = 60° + 360°k"],
+[3,"cos(x − 45°) = √2/2","u=x−45°: u = 45° ó u = 315°  (+360°k)",[90,0],["π/2","0"],"Sumamos 45°: x = 45°+45° = 90°  y  x = 315°+45° = 360° ≡ 0°.","Las dos soluciones en una vuelta son 0° y 90°.","x = 90° + 360°k  y  x = 0° + 360°k"],
+[3,"sen(3x) = −1","3x = 270° + 360°k  →  x = 90° + 120°k",[90,210,330],["π/2","7π/6","11π/6"],"Al dividir entre 3 el periodo baja a 120°.","k=0: 90°. k=1: 210°. k=2: 330°. Tres soluciones.","x = 90° + 120°k"],
+[4,"sen²(x) + cos(x) = 1","sen²=1−cos² → cos(x)·[1 − cos(x)] = 0",[0,90,270],["0","π/2","3π/2"],"Producto = 0 si un factor lo es: cos(x)=0 ó cos(x)=1.","cos=0 → 90° y 270°. cos=1 → 0°.","x = 0° + 360°k,  x = 90° + 180°k"],
+[4,"2·cos²(x) + sen(x) − 1 = 0","cos²=1−sen² → 2·sen²(x) − sen(x) − 1 = 0",[90,210,330],["π/2","7π/6","11π/6"],"Ecuación de 2º grado en t=sen(x): raíces t=1 y t=−1/2.","sen=1 → 90°. sen=−1/2 → 210° y 330°.","x = 90° + 360°k,  x = 210° + 360°k,  x = 330° + 360°k"],
+[4,"sen(2x) = cos(x)","sen(2x)=2·sen(x)·cos(x) → cos(x)·[2·sen(x) − 1] = 0",[30,90,150,270],["π/6","π/2","5π/6","3π/2"],"Factor común: cos(x)=0 ó sen(x)=1/2.","cos=0 → 90° y 270°. sen=1/2 → 30° y 150°.","x = 90° + 180°k,  x = 30° + 360°k,  x = 150° + 360°k"],
+[4,"cos(2x) + sen(x) = 0","cos(2x)=1−2sen² → 2·sen²(x) − sen(x) − 1 = 0",[90,210,330],["π/2","7π/6","11π/6"],"Raíces: sen(x)=1 y sen(x)=−1/2.","sen=1 → 90°. sen=−1/2 → 210° y 330°.","x = 90° + 360°k,  x = 210° + 360°k,  x = 330° + 360°k"],
+[4,"sen(x) + cos(x) = 0","Dividimos entre cos(x): tg(x) = −1",[135,315],["3π/4","7π/4"],"sen(x) = −cos(x): misma magnitud, signo opuesto.","Ocurre a 45° de los ejes: cuadrante II (135°) y IV (315°).","x = 135° + 180°k"]
+];
+const NEXT=[-1.5,-1,-0.866025,-0.707107,-0.5,0,0.5,0.707107,0.866025,1,1.5];
+const NNAME=["−1.5 (trampa)","−1","−√3/2","−√2/2","−1/2","0","+1/2","+√2/2","+√3/2","+1","+1.5 (trampa)"];
+const S={mode:0,ex:0,ang:30,units:0,found:[],flash:0,streak:0,hits:0,
+ lf:0,lk:1,lphi:0,lt:6,lsol:[],spin:0,spinStart:0};
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const $=id=>document.getElementById(id);
+const rad=d=>d*Math.PI/180;
+const norm=d=>((d%360)+360)%360;
+function fmtRad(d){d=Math.round(norm(d));const m={0:"0",30:"π/6",45:"π/4",60:"π/3",90:"π/2",120:"2π/3",135:"3π/4",150:"5π/6",180:"π",210:"7π/6",225:"5π/4",240:"4π/3",270:"3π/2",300:"5π/3",315:"7π/4",330:"11π/6"};return m[d]||((d/180).toFixed(2)+"π");}
+function fmtAng(d){return S.units?fmtRad(d)+" rad":Math.round(norm(d))+"°";}
+
+function labSolve(){
+ S.lsol=[];const t=NEXT[S.lt];if(Math.abs(t)>1)return;
+ for(let x=0;x<360;x+=0.5){
+  const a=rad(S.lk*x+S.lphi);const v=S.lf===1?Math.cos(a):Math.sin(a);
+  if(Math.abs(v-t)<0.02){const r=Math.round(x)%360;
+   if(!S.lsol.some(s=>Math.abs(s-r)<=3||Math.abs(s-r)>=357))S.lsol.push(r);}
+ }
+}
+function targets(){return S.mode===0?EX[S.ex][3]:S.mode===1?S.lsol:[];}
+function check(){
+ let hit=false;
+ const T=targets();
+ T.forEach((s,i)=>{let d=Math.abs(S.ang-s);if(d>180)d=360-d;
+  if(d<=2){S.flash=18;
+   if(S.mode===0){if(!S.found[i]){S.found[i]=true;hit=true;}}else hit=true;}});
+ if(hit){S.streak++;S.hits++;if(navigator.vibrate)navigator.vibrate(60);beep();}
+}
+let ac;function beep(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+ const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=880;g.gain.value=.1;
+ o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.12);}catch(e){}}
+
+function draw(){
+ const W=cv.width,cx=W/2,cy=W/2,R=W*0.36;
+ ctx.clearRect(0,0,W,W);
+ ctx.fillStyle="#0D131E";ctx.fillRect(0,0,W,W);
+ // contexto de objetivo
+ let tv=null,isSine=true,oob=false;
+ if(S.mode===0){const e=EX[S.ex];isSine=!(e[1].includes("cos")&&!e[1].includes("sen"));tv=Math.sin(rad(e[3][0]));}
+ else if(S.mode===1){tv=NEXT[S.lt];isSine=S.lf!==1;oob=Math.abs(tv)>1;}
+ if(tv!==null){
+  ctx.globalAlpha=.09;
+  if(oob){ctx.fillStyle="#FF2255";ctx.fillRect(0,0,W,W);}
+  else if(tv>0){ctx.fillStyle=isSine?"#00F0FF":"#FF1493";isSine?ctx.fillRect(cx-R,cy-R,2*R,R):ctx.fillRect(cx,cy-R,R,2*R);}
+  else if(tv<0){ctx.fillStyle="#FFAA00";isSine?ctx.fillRect(cx-R,cy,2*R,R):ctx.fillRect(cx-R,cy-R,R,2*R);}
+  ctx.globalAlpha=1;
+ }
+ // círculos
+ [0.25,0.5,0.7071,0.866].forEach(f=>{ctx.beginPath();ctx.arc(cx,cy,R*f,0,7);ctx.strokeStyle="#1C3B5E";ctx.lineWidth=1;ctx.stroke();});
+ ctx.strokeStyle="#2B4664";ctx.beginPath();ctx.moveTo(cx-R-25,cy);ctx.lineTo(cx+R+25,cy);ctx.moveTo(cx,cy-R-25);ctx.lineTo(cx,cy+R+25);ctx.stroke();
+ const flash=S.flash>0;
+ ctx.shadowBlur=flash?25:10;ctx.shadowColor=flash?"#00FF88":oob?"#FF2255":"#00F0FF";
+ ctx.beginPath();ctx.arc(cx,cy,R,0,7);ctx.strokeStyle=flash?"#00FF88":oob?"#FF2255":"#00F0FF";ctx.lineWidth=3;ctx.stroke();ctx.shadowBlur=0;
+ // marcas notables
+ ctx.fillStyle="#7E90A6";ctx.font=(W*0.026)+"px sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";
+ [0,30,45,60,90,120,135,150,180,210,225,240,270,300,315,330].forEach(a=>{
+  const x=cx+(R+W*0.055)*Math.cos(rad(a)),y=cy-(R+W*0.055)*Math.sin(rad(a));
+  ctx.fillText(S.units?fmtRad(a):a+"°",x,y);});
+ // líneas objetivo (laboratorio)
+ if(S.mode===1){
+  const t=NEXT[S.lt];ctx.lineWidth=oob?3:2;ctx.setLineDash(oob?[]:[6,5]);
+  if(S.lf!==1){ctx.strokeStyle=oob?"#FF2255":"#00A0B0";const y=cy-R*t;ctx.beginPath();ctx.moveTo(cx-R-40,y);ctx.lineTo(cx+R+40,y);ctx.stroke();}
+  if(S.lf!==0){ctx.strokeStyle=oob?"#FF2255":"#B00070";const x=cx+R*t;ctx.beginPath();ctx.moveTo(x,cy-R-40);ctx.lineTo(x,cy+R+40);ctx.stroke();}
+  ctx.setLineDash([]);
+ }
+ // dianas
+ if(S.mode<2)targets().forEach((s,i)=>{
+  const x=cx+R*Math.cos(rad(s)),y=cy-R*Math.sin(rad(s));
+  const ok=S.mode===0&&S.found[i];
+  ctx.beginPath();ctx.arc(x,y,9,0,7);ctx.strokeStyle=(ok||S.mode===1)?"#00FF88":"#3E5A7A";ctx.lineWidth=3;
+  if(ok||S.mode===1){ctx.shadowColor="#00FF88";ctx.shadowBlur=12;}ctx.stroke();ctx.shadowBlur=0;});
+ // animación periodo
+ if(S.spin>0){S.ang=norm(S.ang+6);S.spin--;if(S.spin===0)S.ang=S.spinStart;}
+ const a=rad(S.ang),px=cx+R*Math.cos(a),py=cy-R*Math.sin(a);
+ ctx.lineWidth=5;ctx.strokeStyle="#FF1493";ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,cy);ctx.stroke();
+ ctx.strokeStyle="#00F0FF";ctx.beginPath();ctx.moveTo(px,cy);ctx.lineTo(px,py);ctx.stroke();
+ ctx.lineWidth=3;ctx.strokeStyle="#FFD700";ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();
+ ctx.fillStyle=flash?"#00FF88":"#FFD700";ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=14;ctx.beginPath();ctx.arc(px,py,9,0,7);ctx.fill();ctx.shadowBlur=0;
+ if(S.flash>0)S.flash--;
+ // arco del ángulo
+ ctx.strokeStyle="#FFD70088";ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,R*0.18,0,-a,true);ctx.stroke();
+ // HUD vivo
+ const s=Math.sin(a),c=Math.cos(a);
+ $('live').innerHTML=`<div class="yl" style="font-size:24px;font-weight:800">α = ${S.ang.toFixed(1)}° &nbsp; <span style="font-size:15px;color:#EEE">${fmtRad(S.ang)} rad</span></div>
+ <div class="cy">■ SENO (altura): sen α = ${s.toFixed(4)}</div><div class="mg">■ COSENO (anchura): cos α = ${c.toFixed(4)}</div>`;
+ requestAnimationFrame(draw);
+}
+
+function panel(){
+ const r=$('right');
+ if(S.mode===0){
+  const e=EX[S.ex];
+  const sols=e[3].map((s,i)=>`<div class="sol ${S.found[i]?'ok':''}">${S.found[i]?'✓ ACERTADA':'… BUSCANDO'} · α = ${s}° (${e[4][i]})</div>`).join('');
+  const done=e[3].every((_,i)=>S.found[i]);
+  r.innerHTML=`<div class="sm gr">NIVEL ${e[0]} · RETO ${S.ex+1}/20 · 🔥 Racha ${S.streak}</div>
+  <div class="eq">${e[1]}</div><div class="sm gr">${e[2]}</div>
+  <h3 class="yl">Soluciones en [0°, 360°) que debes encontrar:</h3>${sols}
+  ${done?`<div class="alert" style="background:#07301f;border-color:#00FF88"><b class="gr">🎉 ¡Todas encontradas!</b></div>`:''}
+  <h3 class="am">¿Por qué ocurre esto?</h3><div class="sm" style="color:#EEE">${e[5]}<br>${e[6]}</div>
+  <h3 class="cy">Solución general (+360°·k ó +2πk):</h3><div class="sm" style="font-family:Consolas,monospace">${e[7]}</div>
+  <div class="row"><button class="btn" id="prev">◀ Anterior</button><button class="btn big" id="next">Siguiente ▶</button></div>`;
+  $('prev').onclick=()=>setEx(S.ex-1);$('next').onclick=()=>setEx(S.ex+1);
+ }else if(S.mode===1){
+  const t=NEXT[S.lt],oob=Math.abs(t)>1;
+  const fn=["sen","cos","sen y cos"][S.lf];
+  const btn=(arr,cur,id)=>arr.map((x,i)=>`<button class="btn ${i===cur?'on':''}" data-${id}="${i}">${x}</button>`).join('');
+  r.innerHTML=`<div class="eq ${oob?'rd':''}">${fn}(${S.lk}·x ${S.lphi<0?'−':'+'} ${Math.abs(S.lphi)}°) = ${t.toFixed(3)}</div>
+  <h3 class="yl">1. Función</h3><div class="row">${btn(["Seno","Coseno","Ambos"],S.lf,'f')}</div>
+  <h3 class="gr">2. Multiplicador k</h3><div class="row">${btn(["0.5x","1x","2x","3x"],[0.5,1,2,3].indexOf(S.lk),'k')}</div>
+  <h3 class="am">3. Desfase ϕ = ${S.lphi}°</h3><div class="row"><button class="btn" id="phm">− 15°</button><button class="btn" id="php">+ 15°</button></div>
+  <h3 class="cy">4. Valor objetivo</h3><div class="row" style="flex-wrap:wrap">${NNAME.map((n,i)=>`<button class="btn ${i===S.lt?'on':''}" style="flex:0 0 31%;padding:8px 2px;font-size:12px" data-t="${i}">${n}</button>`).join('')}</div>
+  ${oob?`<div class="alert"><b class="rd">🚫 IMPOSIBLE: FUERA DEL CÍRCULO DE RADIO 1</b><div class="sm" style="color:#EEE">El seno y el coseno nunca superan +1 ni bajan de −1. La línea roja flota fuera del círculo y no corta nunca.<br><b class="yl">Respuesta de examen: «Sin solución real (∄x∈ℝ)».</b></div></div>`:
+  `<h3 class="gr">Soluciones en [0°,360°): ${S.lsol.length}</h3><div class="sol ok">${S.lsol.map(s=>s+"°").join("  ")||"—"}</div>
+  <div class="sm">${t<0?"Valor negativo: iluminamos el SÓTANO (seno) o la IZQUIERDA (coseno). Fórmulas: 180°+α y 360°−α.":t>0?"Valor positivo: iluminamos la mitad superior (seno) o derecha (coseno). Fórmulas: α y 180°−α.":"Valor 0: la línea coincide con un eje."}</div>`}`;
+  r.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{S.lf=+b.dataset.f;labSolve();panel();});
+  r.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{S.lk=[0.5,1,2,3][+b.dataset.k];labSolve();panel();});
+  r.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{S.lt=+b.dataset.t;labSolve();panel();});
+  $('phm').onclick=()=>{S.lphi=Math.max(-90,S.lphi-15);labSolve();panel();};
+  $('php').onclick=()=>{S.lphi=Math.min(90,S.lphi+15);labSolve();panel();};
+ }else{
+  r.innerHTML=`<div class="eq" style="font-size:20px;color:#CC88FF">💡 Teoría visual: ¿por qué?</div>
+  <h3 class="cy">1. La regla del círculo (radio = 1)</h3><div class="sm" style="color:#EEE">• SENO = ALTURA (eje Y): cuánto subes o bajas.<br>• COSENO = ANCHURA (eje X): cuánto vas a derecha o izquierda.<br>• ¿Por qué 2 soluciones? Al cortar una rosquilla con un cuchillo recto, ¡siempre la cortas en DOS puntos!</div>
+  <h3 class="am">2. ¿Y si el resultado es NEGATIVO?</h3><div class="sm" style="color:#EEE">• sen(x) &lt; 0 → estás en el SÓTANO (cuadrantes III y IV). Calcula el ángulo en positivo α y usa 180°+α y 360°−α.<br>• cos(x) &lt; 0 → estás a la IZQUIERDA (II y III). Usa 180°−α y 180°+α.</div>
+  <h3 class="rd">3. ¿Y si es IMPOSIBLE? (sen x = 1.5)</h3><div class="sm" style="color:#EEE">La altura máxima es +1 y la mínima −1. La línea flota fuera del círculo y no hay puntos de corte. Se escribe: <b class="yl">«Sin solución real (∄x∈ℝ)»</b>. (La tangente sí puede valer cualquier número.)</div>
+  <h3 class="gr">4. ¿De dónde sale +360°k?</h3><div class="sm" style="color:#EEE">Una vuelta completa de 360° (2π rad) te deja en el MISMO punto. k es el número de vueltas. Pulsa el botón 🔄 y míralo.</div>
+  <h3 class="yl">Chuleta de ángulos notables</h3><div class="sm" style="font-family:Consolas,monospace;color:#EEE">0°: sen 0, cos 1<br>30°: sen 1/2, cos √3/2<br>45°: sen √2/2, cos √2/2<br>60°: sen √3/2, cos 1/2<br>90°: sen 1, cos 0<br><span class="gr">Truco: sen = √0/2, √1/2, √2/2, √3/2, √4/2</span></div>`;
+ }
+}
+function setEx(i){S.ex=(i+20)%20;S.found=[];S.flash=0;panel();}
+function setMode(m){S.mode=m;[0,1,2].forEach(i=>$('t'+i).classList.toggle('on',i===m));if(m===1)labSolve();panel();}
+[0,1,2].forEach(i=>$('t'+i).onclick=()=>setMode(i));
+function step(d){S.ang=norm(S.ang+d);check();panel_live();}
+function panel_live(){if(S.mode===0)panel();}
+$('m1').onclick=()=>step(-1);$('p1').onclick=()=>step(1);$('m15').onclick=()=>step(-15);$('p15').onclick=()=>step(15);
+$('unit').onclick=function(){S.units^=1;this.textContent="Unidad: "+(S.units?"Radianes":"Grados");};
+$('spin').onclick=()=>{if(!S.spin){S.spinStart=S.ang;S.spin=60;}};
+function pointer(e){const r=cv.getBoundingClientRect();
+ const x=(e.clientX-r.left)/r.width*cv.width-cv.width/2,y=cv.height/2-(e.clientY-r.top)/r.height*cv.height;
+ if(Math.hypot(x,y)<12)return;S.ang=norm(Math.atan2(y,x)*180/Math.PI);const before=S.found.join();check();if(S.mode===0&&S.found.join()!==before)panel();}
+let drag=false;
+cv.addEventListener('pointerdown',e=>{drag=true;cv.setPointerCapture(e.pointerId);pointer(e);});
+cv.addEventListener('pointermove',e=>{if(drag)pointer(e);});
+cv.addEventListener('pointerup',()=>drag=false);
+window.addEventListener('keydown',e=>{
+ if(e.key==="ArrowLeft")step(e.shiftKey?15:1);else if(e.key==="ArrowRight")step(e.shiftKey?-15:-1);
+ else if(e.key===" "||e.key==="Enter")setEx(S.ex+1);});
+labSolve();panel();draw();
+</script>
+</body>
+</html>
